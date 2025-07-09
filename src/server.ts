@@ -6,6 +6,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 import { env } from './env.ts';
+import { getRoomsRoute } from './http/routes/get-rooms.ts';
 
 //criando a aplicação utilizando o fastify junto com o zod
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -22,5 +23,8 @@ app.setValidatorCompiler(validatorCompiler);
 app.get('/health', () => {
   return 'OK';
 });
+
+//sinalizando onde está as rotas
+app.register(getRoomsRoute);
 
 app.listen({ port: env.PORT });
